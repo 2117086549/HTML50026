@@ -1,5 +1,5 @@
-<!doctype html> 
-<html lang="en"> 
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <title>Mark's game</title>
@@ -32,26 +32,27 @@
 
         // Now let's create the player.
         player = new mg.Player(game);
-        player.create(32, game.world.height - 110, 'dude');
+        player.create(32, game.world.height - 140, 'wizard');
 
         // Now let's create some monsters.
         monsters.push(new mg.Monster(game));
         var positionx = 32;
-        var positiony = game.world.height - 400;
-        monsters[0].create(positionx, positiony, 'dude');
+        var positiony = game.world.height - 440;
+        monsters[0].create(positionx, positiony, 'enemies');
 
         monsters.push(new mg.Monster(game));
-        var positionx = 600;
-        var positiony = game.world.height - 250;
-        monsters[1].create(positionx, positiony, 'dude');
+        positionx = 600;
+        positiony = game.world.height - 280;
+        monsters[1].create(positionx, positiony, 'enemies');
     }
 
     function update() {
-        // Collide the player and the monsters with the platforms
-        mg.World.addCollision(game, player);
+        // Collide the player and the monsters with the platforms.
+        mg.World.addCollision(game, player.character);
         for (var i = 0; i < monsters.length; i++) {
-            mg.World.addCollision(game, monsters[i]);
+            mg.World.addCollision(game, monsters[i].character);
         }
+        // Update the player.
         player.update();
     }
 </script>
