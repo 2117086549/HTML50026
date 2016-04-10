@@ -7,7 +7,8 @@
     <script type="text/javascript" src="lib/World.js"></script>
     <script type="text/javascript" src="lib/Char.js"></script>
     <script type="text/javascript" src="lib/Player.js"></script>
-    <script type="text/javascript" src="lib/Monster.js"></script>
+    <script type="text/javascript" src="lib/Enemy.js"></script>
+    <script type="text/javascript" src="lib/Mummy.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -32,17 +33,17 @@
 
         // Now let's create the player.
         player = new mg.Player(game);
-        player.create(32, game.world.height - 140, 'wizard');
+        player.create(32, game.world.height - 110, 'wizard');
 
         // Now let's create some monsters.
-        monsters.push(new mg.Monster(game));
+        monsters.push(new mg.Mummy(game));
         var positionx = 32;
-        var positiony = game.world.height - 440;
+        var positiony = game.world.height - 470;
         monsters[0].create(positionx, positiony, 'enemies');
 
-        monsters.push(new mg.Monster(game));
+        monsters.push(new mg.Mummy(game));
         positionx = 600;
-        positiony = game.world.height - 280;
+        positiony = game.world.height - 300;
         monsters[1].create(positionx, positiony, 'enemies');
     }
 
@@ -51,6 +52,8 @@
         mg.World.addCollision(game, player.character);
         for (var i = 0; i < monsters.length; i++) {
             mg.World.addCollision(game, monsters[i].character);
+            // Update the monster.
+            monsters[i].update();
         }
         // Update the player.
         player.update();
