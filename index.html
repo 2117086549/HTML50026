@@ -4,60 +4,21 @@
     <meta charset="UTF-8" />
     <title>Mark's game</title>
     <script type="text/javascript" src="phaser/build/phaser.min.js"></script>
-    <script type="text/javascript" src="lib/World.js"></script>
-    <script type="text/javascript" src="lib/Char.js"></script>
-    <script type="text/javascript" src="lib/Player.js"></script>
-    <script type="text/javascript" src="lib/Enemy.js"></script>
-    <script type="text/javascript" src="lib/Mummy.js"></script>
-    <style type="text/css">
-        body {
-            margin: 0;
-        }
-    </style>
+    <script type="text/javascript" src="lib/states/Load.js"></script>
+    <script type="text/javascript" src="lib/states/Game.js"></script>
+    <script type="text/javascript" src="lib/chars/CharBase.js"></script>
+    <script type="text/javascript" src="lib/chars/Player.js"></script>
+    <script type="text/javascript" src="lib/chars/Enemy.js"></script>
+    <script type="text/javascript" src="lib/chars/Mummy.js"></script>
 </head>
 <body>
 
 <script type="text/javascript">
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
-    var player = null;
-    var monsters = [];
-
-    function preload() {
-        // Load the world assets.
-        mg.World.loadAssets(game);
-    }
-
-    function create() {
-        // Create the world we are going to be playing in.
-        mg.World.create(game);
-
-        // Now let's create the player.
-        player = new mg.Player(game);
-        player.create(32, game.world.height - 110, 'wizard');
-
-        // Now let's create some monsters.
-        monsters.push(new mg.Mummy(game));
-        var positionx = 32;
-        var positiony = game.world.height - 470;
-        monsters[0].create(positionx, positiony, 'enemies');
-
-        monsters.push(new mg.Mummy(game));
-        positionx = 600;
-        positiony = game.world.height - 300;
-        monsters[1].create(positionx, positiony, 'enemies');
-    }
-
-    function update() {
-        // Collide the player and the monsters with the platforms.
-        mg.World.addCollision(game, player.character);
-        for (var i = 0; i < monsters.length; i++) {
-            mg.World.addCollision(game, monsters[i].character);
-            // Update the monster.
-            monsters[i].update();
-        }
-        // Update the player.
-        player.update();
-    }
+    var mg = mg || {};
+    mg.game = new Phaser.Game(800, 600, Phaser.AUTO, '');
+    mg.game.state.add('Load', mg.Load);
+    mg.game.state.add('Game', mg.Game);
+    mg.game.state.start('Load');
 </script>
 
 </body>
